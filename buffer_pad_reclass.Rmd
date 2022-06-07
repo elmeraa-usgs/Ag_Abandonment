@@ -1,0 +1,1007 @@
+---
+title: "buffer PAD reclassified FORESCE LULC data"
+author: "Elmera Azadpour"
+date: "5/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sf)
+library(fasterize)
+library(raster)
+library(tidyverse)
+library(rgdal)
+library(here)
+library(terra)
+library(kableExtra)
+library(stringr)
+```
+
+This Rmd contains code that applies a 10km buffer region to the core PAD areas with the masked reclassified USGS FORE-SCE data. The reclassified tif fFORE-SCE files were exported from [GEE](https://code.earthengine.google.com/2e41636af984e5ee225d827eee63cfe7). 
+
+
+## read in PAD data 
+note, the PAD GAP 1 & 2 data was filtered where shape area was greater than or equal to 96km given a [Litvaitis et al., 1986](https://www.jstor.org/stable/pdf/3801498.pdf?casa_token=zkfOM-QTLJ4AAAAA:M4-pDoaQjrYDzxWwgIjda1GzsM7ApLbEoXTXzTTyGZbkgpIeOsCYc6Jk4yn9ujbgDvtMCjKHGQQlT6Bbi1qbQeLFkZOpOF5nzLoJILaZ3r3gaq-LtwnI) Maine paper that notes male bobcat range was recorder to be 95.6km2
+```{r}
+PAD_df_filt_96km<- sf::st_read(here("PAD_df_filt","PAD_df_BCrange_96km.shp")) %>% 
+  dplyr::select(GAP_Sts) 
+```
+
+## set crs so when we buffer we know the units (meters)
+```{r}
+st_crs(PAD_df_filt_96km) <-  "EPSG:5070"
+```
+
+## import PAD 10km buffered regions (n = 44 ) as tif 
+```{r}
+PAD_buff_10km <- rast(here("buffer_only_10km", "PAD_buff_only_10km.tif")) # view tif
+# plot(PAD_buff_10km)
+```
+
+## read in FORESCE prjection to rasterize the PAD buffer region by - note: you will need to adjust the template based on what year and projection you use
+```{r}
+## add 2005 historical layers 
+FORESCE_hist2005 <- rast(here("reclass", "FORESCE2005hist_reclass.tif")) 
+
+## 2050 projections 
+FORESCE_A1B2050 <- rast(here("reclass", "FORESCE2050A1B_reclass.tif")) 
+FORESCE_A22050 <- rast(here("reclass", "FORESCE2050A2_reclass.tif")) 
+FORESCE_B12050 <- rast(here("reclass", "FORESCE2050B1_reclass.tif")) 
+FORESCE_B22050 <- rast(here("reclass", "FORESCE2050B2_reclass.tif")) 
+
+## 2060 projections 
+FORESCE_A1B2060 <- rast(here("reclass", "FORESCE2060A1B_reclass.tif")) 
+FORESCE_A22060 <- rast(here("reclass", "FORESCE2060A2_reclass.tif")) 
+FORESCE_B12060 <- rast(here("reclass", "FORESCE2060B1_reclass.tif")) 
+FORESCE_B22060 <- rast(here("reclass", "FORESCE2060B2_reclass.tif")) 
+
+## 2070 projections
+FORESCE_A1B2070 <- rast(here("reclass", "FORESCE2070A1B_reclass.tif")) 
+FORESCE_A22070 <- rast(here("reclass", "FORESCE2070A2_reclass.tif")) 
+FORESCE_B12070 <- rast(here("reclass", "FORESCE2070B1_reclass.tif")) 
+FORESCE_B22070 <- rast(here("reclass", "FORESCE2070B2_reclass.tif")) 
+
+## 2080 projections
+FORESCE_A1B2080 <- rast(here("reclass", "FORESCE2080A1B_reclass.tif")) 
+FORESCE_A22080 <- rast(here("reclass", "FORESCE2080A2_reclass.tif")) 
+FORESCE_B12080 <- rast(here("reclass", "FORESCE2080B1_reclass.tif")) 
+FORESCE_B22080 <- rast(here("reclass", "FORESCE2080B2_reclass.tif")) 
+
+## 2090 projections
+FORESCE_A1B2090 <- rast(here("reclass", "FORESCE2090A1B_reclass.tif")) 
+FORESCE_A22090 <- rast(here("reclass", "FORESCE2090A2_reclass.tif")) 
+FORESCE_B12090 <- rast(here("reclass", "FORESCE2090B1_reclass.tif")) 
+FORESCE_B22090 <- rast(here("reclass", "FORESCE2090B2_reclass.tif")) 
+
+## 2100 projections
+FORESCE_A1B2100 <- rast(here("reclass", "FORESCE2100A1B_reclass.tif")) 
+FORESCE_A22100 <- rast(here("reclass", "FORESCE2100A2_reclass.tif")) 
+FORESCE_B12100 <- rast(here("reclass", "FORESCE2100B1_reclass.tif")) 
+FORESCE_B22100 <- rast(here("reclass", "FORESCE2100B2_reclass.tif")) 
+```
+
+
+## set crs, crop and mask with the template projection and write raster 
+```{r}
+# set crs so they're the same 
+crs(PAD_buff_10km) <-  "EPSG:5070"
+crs(FORESCE_B22100) <-  "EPSG:5070"
+
+# apply cropping and masking
+foresce_pad_filt <- FORESCE_B22100 %>%
+  crop(y = PAD_buff_10km) %>%
+  mask(mask = PAD_buff_10km)
+
+  plot(foresce_pad_filt)
+
+# save raster as .tif
+# terra::writeRaster(
+#   foresce_pad_filt,
+#   "reclass_foresce_raster/FORESCE_2100_B2_us_extent_reclass.tif",
+#   overwrite = TRUE
+#   )
+```
+
+
+## step further to crop to SE US
+```{r}
+## next step, crop to SE US
+
+## read in FORESCE 2005 historical tif 
+FORESCE_2005_hist_us_extent_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2005_hist_us_extent_reclass.tif"))
+
+## read in FORESCE ecoregion 4 level 3, southeastern US tif -- proj doesnt matter here, we're simply cropping and masking 
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+# set crs to same for both files
+crs(FORESCE_2005_hist_us_extent_reclass) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+## apply crop and masking
+crop <- FORESCE_2005_hist_us_extent_reclass %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+## check to make sure this is what we want
+plot(crop)
+
+# save raster as .tif
+# terra::writeRaster(
+#   crop,
+#   "reclass_foresce_raster/FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass.tif",
+#   overwrite = TRUE
+#   )
+```
+
+## get counts for each class, each projection, each decade 
+```{r}
+## historical projection 
+FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass.tif"))
+
+## 2050 projection 
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2050_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2050_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2050_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2050_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2050_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2050_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+
+## 2060 projection 
+FORESCE_2060_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2060_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2060_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2060_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2060_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2060_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2060_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2060_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+## 2070 projection 
+FORESCE_2070_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2070_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2070_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2070_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2070_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2070_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2070_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2070_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+## 2080 projection
+FORESCE_2080_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2080_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2080_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2080_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2080_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2080_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2080_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2080_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+## 2090 projection
+FORESCE_2090_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2090_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2090_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2090_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2090_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2090_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2090_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2090_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+
+## 2100 projection
+FORESCE_2100_A1B_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2100_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2100_A2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2100_A2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2100_B1_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2100_B1_eco4_l3_96km_buff_10km_reclass.tif"))
+
+FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster", "FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass.tif"))
+
+## historical projection stats 
+FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("Historical")) %>% 
+  mutate(year = c("2005"))
+
+## 2050 projection stats 
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2050")) 
+
+FORESCE_2050_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2050_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2050")) 
+
+FORESCE_2050_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2050_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2050")) 
+
+FORESCE_2050_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2050_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2050")) 
+
+## 2060 projection stats
+FORESCE_2060_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2060_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2060")) 
+
+FORESCE_2060_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2060_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2060")) 
+
+FORESCE_2060_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2060_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2060")) 
+
+FORESCE_2060_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2060_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2060")) 
+
+## 2070 projection stats 
+FORESCE_2070_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2070_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2070")) 
+
+FORESCE_2070_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2070_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2070")) 
+
+FORESCE_2070_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2070_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2070")) 
+
+FORESCE_2070_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2070_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2070")) 
+
+## 2080 projection stats 
+FORESCE_2080_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2080_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2080")) 
+
+FORESCE_2080_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2080_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2080")) 
+
+FORESCE_2080_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2080_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2080")) 
+
+FORESCE_2080_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2080_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2080")) 
+
+## 2090 projection stats 
+FORESCE_2090_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2090_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2090")) 
+
+FORESCE_2090_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2090_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2090")) 
+
+FORESCE_2090_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2090_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2090")) 
+
+FORESCE_2090_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2090_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2090")) 
+
+## 2100 projection stats
+FORESCE_2100_A1B_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2100_A1B_eco4_l3_96km_buff_10km_reclass) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2100")) 
+
+FORESCE_2100_A2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2100_A2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A2")) %>% 
+  mutate(year = c("2100")) 
+
+FORESCE_2100_B1_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2100_B1_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B1")) %>% 
+  mutate(year = c("2100")) 
+
+FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass_df<- terra::freq(FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2100")) 
+```
+
+## now lets make one dataframe with all of them combined 
+```{r}
+foresce_pad_stats_df <- rbind(FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass_df, 
+                              FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2050_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2050_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2050_B2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2060_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2060_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2060_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2060_B2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2070_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2070_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2070_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2070_B2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2080_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2080_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2080_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2080_B2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2090_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2090_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2090_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2090_B2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2100_A1B_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2100_A2_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2100_B1_eco4_l3_96km_buff_10km_reclass_df,
+                              FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass_df) %>% 
+  select(-value) %>% # drop value column 
+  select(class, proj, year, count) # reorder
+
+# export as csv for backup
+# write.csv(foresce_pad_stats_df, "foresce_pad_stats_df.csv")
+```
+
+
+## make a table 
+```{r}
+foresce_pad_stats_df %>%  
+  kable(col.names = c("Class",
+                      "Projection",
+                      "Year",
+                      "Count"), 
+        caption = "**Table 1**: Pixel count for FORE-SCE reclassified land use classes by projection and year") %>% 
+  kable_styling(full_width = TRUE) 
+```
+
+
+```{r}
+## read in the FORESCE layer to crop and mask by 
+FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass <- rast(here("reclass_foresce_raster",  "FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass.tif")) 
+
+crs(FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass) <-  "EPSG:5070"
+
+## read in the PAD top polygon rasters 
+inf <- rast(list.files("~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons_raster/PAD_sites", pattern="tif$", full.names=TRUE))
+
+## adapted from https://stackoverflow.com/questions/67377275/is-there-a-faster-way-to-mask-multiple-rasters-using-multiple-polygons and https://stackoverflow.com/questions/70745622/how-to-create-a-list-of-several-rasters-from-a-crop-and-mask-cut-from-shapefil
+
+#create empty list 
+    list_raster_cut<-list()
+
+    #loop operation 
+    for(i in 1:length(inf)){
+      # crop e mask
+      list_raster_cut[[i]] <- FORESCE_2100_B2_eco4_l3_96km_buff_10km_reclass %>% 
+        terra::crop(inf)%>%
+        terra::mask(inf) 
+    }
+    
+## 05/24/22: need to find a way to assign the tif file name to loop, havent been succesful      
+
+terra:: writeRaster(list_raster_cut[[1]]$lyr1 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Apalachicola_2100_B2_masked.tif",
+  overwrite = TRUE)
+
+terra:: writeRaster(list_raster_cut[[1]]$lyr2 , 
+  "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Cohutta_2100_B2_masked.tif",
+  overwrite = TRUE)
+
+terra:: writeRaster(list_raster_cut[[1]]$lyr3 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Kissimmee_2100_B2_masked.tif",
+  overwrite = TRUE)
+
+terra:: writeRaster(list_raster_cut[[1]]$lyr4 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Land_Between_2100_B2_masked.tif",
+  overwrite = TRUE)
+
+terra:: writeRaster(list_raster_cut[[1]]$lyr5 , 
+  "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked.tif",
+  overwrite = TRUE)
+
+```
+
+## pixel count tables 
+```{r}
+inf_rcl <- rast(list.files("~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons_reclass_raster", pattern="tif$", full.names=TRUE))
+
+inf_rcl2 <- list.files("~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons_reclass_raster", pattern="tif$", full.names=TRUE) %>%  as.data.frame()
+
+## adapted from https://stackoverflow.com/questions/67377275/is-there-a-faster-way-to-mask-multiple-rasters-using-multiple-polygons and https://stackoverflow.com/questions/70745622/how-to-create-a-list-of-several-rasters-from-a-crop-and-mask-cut-from-shapefil
+
+#create empty list 
+    list_raster_freq<-list()
+    
+        #loop operation
+    for(i in 1:length(inf_rcl)){
+      list_raster_freq[[i]] <- terra::freq(inf_rcl)
+    }
+    
+df_raster_freq <- do.call(rbind.data.frame, list_raster_freq) %>% 
+  select(-layer) %>% 
+   mutate(class = 
+            case_when(value == 0 ~ c("other"),
+                        value == 1 ~ c("water"),
+                        value == 2 ~ c("developed"), 
+                        value == 3 ~ c("cropland"),
+                        value == 4 ~ c("hay/pasture"),
+                        value == 5 ~ c("natural")))
+
+
+
+## mental check of counts 
+PAD_df_filt_96km_10km_buff_Apalachicola_2005_hist_masked <- rast(here("buffer_top_polygons_reclass_raster", "PAD_df_filt_96km_10km_buff_Apalachicola_2005_hist_masked.tif"))
+
+PAD_df_filt_96km_10km_buff_Apalachicola_2005_hist_masked<- terra::freq(PAD_df_filt_96km_10km_buff_Apalachicola_2005_hist_masked) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("historical")) %>% 
+  mutate(year = c("2005"))
+
+
+PAD_df_filt_96km_10km_buff_Apalachicola_2050_A1B_masked <- rast(here("buffer_top_polygons_reclass_raster", "PAD_df_filt_96km_10km_buff_Apalachicola_2050_A1B_masked.tif"))
+
+PAD_df_filt_96km_10km_buff_Apalachicola_2050_A1B_masked_df<- terra::freq(PAD_df_filt_96km_10km_buff_Apalachicola_2050_A1B_masked) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("A1B")) %>% 
+  mutate(year = c("2050"))
+
+PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked <- rast(here("buffer_top_polygons_reclass_raster", "PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked.tif"))
+
+PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked<- terra::freq(PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked) %>% 
+  as.data.frame() %>% 
+  select(-layer) %>% 
+  mutate(class = c("Other", "Water", "Developed", "Cropland", "Hay/Pasture", "Natural")) %>% 
+  mutate(proj = c("B2")) %>% 
+  mutate(year = c("2100"))
+```
+
+## read in csv with frequencies of each class count 
+```{r}
+top_polygon_tbl<- read_csv(here("buffer_only_top_polygons_raster","pad_foresce_top_polygon_freq.csv"))
+
+Apalachicola_2005_hist_masked <- rast(here("buffer_top_polygons_reclass_raster", "PAD_df_filt_96km_10km_buff_Apalachicola_2005_hist_masked.tif"))
+
+
+```
+
+## make a change raster
+per patricks suggestion: ...build a change raster where you multiply the first time step by 10 (might need to be higher if you have more than 10 classes) and then add.  The result will be a raster with values that show class in first step then class in second step — eg if value goes from 1 -> 2 it will be 12.  You can then just summarize the counts of those values by cropping/masking to an area of interest and using freq(). No change will be double numbers like 11, 22, etc.
+
+trans -> (r1*10) + r2
+You’ll get a raster that accounts for all the transitions (or lack thereof)
+So:
+- Class 1 in timestep 1 -> class 2 in timestep 2 = 12
+- Class 2 in timestep 1 -> class 5 in timestep 2 = 25
+- Class 2 in timestep 1 -> class 2 in timestep 2 = 22
+From the frequency table you can then count the number of pixels that undergo each transition (or are stable).
+
+For our puposes:
+other (0) 
+water (1) 
+developed (2) 
+cropland (3) 
+hay/pasture (4)
+natural (5) 
+```{r}
+
+hist_2005_buf <- rast(here("reclass_foresce_raster", "FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass.tif"))
+
+A1B_2050_buf <- rast(here("reclass_foresce_raster", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+trans <- (hist_2005_buf*10) + A1B_2050_buf
+
+plot(trans)
+
+# save raster as .tif
+# terra::writeRaster(
+#   trans,
+#   "hist_2005_buf_trans_A1B_2050_buf.tif",
+#   overwrite = TRUE
+#   )
+
+rs_freq<- freq(trans) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Other"),
+                      value == 11 ~ c("Water"), # double of the same diget stayed the same 
+                        value == 22 ~ c("Developed"),
+                        value == 33 ~ c("Cropland"), 
+                        value == 44 ~ c("Hay/Pasture"),
+                        value == 55 ~ c("Natural"),
+                        value == 2 ~ c("Other to Developed"),
+                        value == 5 ~ c("Other to Natural"),
+                        value == 15 ~ c("Water to Natural"),
+                        value == 21 ~ c("Developed to Water"),
+                        value == 25 ~ c("Developed to Natural"),
+                        value == 30 ~ c("Cropland to Other"),
+                        value == 32 ~ c("Cropland to Developed"),
+                        value == 34 ~ c("Cropland to Hay/Pasture"), 
+                        value == 35 ~ c("Cropland to Natural"),
+                        value == 40 ~ c("Hay/Pasture to Other"),
+                        value == 42 ~ c("Hay/Pasture to Developed"),
+                        value == 43 ~ c("Hay/Pasture to Cropland"),
+                        value == 40 ~ c("Hay/Pasture to Other"),
+                        value == 45 ~ c("Hay/Pasture to Natural"),
+                        value == 50 ~ c("Natural to Other"),
+                        value == 51 ~ c("Natural to Water"),
+                        value == 52 ~ c("Natural to Developed"),
+                        value == 53 ~ c("Natural to Cropland"),
+                        value == 54 ~ c("Natural to Hay/Pasture"))) 
+
+
+  rs_freq <- rs_freq %>%  
+ mutate(total_pad_area = 4.68122e+10) %>%  # total area of all PAD GAP 1&2 polygons (n=44) in m2 
+    mutate(frac_land_area = (count*62500)/total_pad_area) # 250 * 250m = 62,500 m2 for FORE-SCE resolution
+
+# write.csv(rs_freq, "hist_2005_buf_to_A1B_2050_buf_trans.csv") export as csv to make a clean table 
+```
+
+## reclassifying the tifs to remove other and water
+```{r}
+hist_2005_buf <- rast(here("reclass_foresce_raster", "FORESCE_2005_hist_eco4_l3_96km_buff_10km_reclass.tif"))
+
+A1B_2050_buf <- rast(here("reclass_foresce_raster", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_reclass.tif"))
+
+### reclass matrix to produce new raster
+m <- c(0,NA, # other
+        1, NA, # water
+       2,0, # developed
+       3,1, # Cropland
+       4,2, # hay/pasture
+       5,3) # natural
+
+m <- matrix(m,ncol=2, byrow= TRUE)
+
+### terra for classifying
+hist_2005_buf_recl <- classify(hist_2005_buf,m)
+A1B_2050_buf_recl <- classify(A1B_2050_buf,m)
+
+trans2 <- (hist_2005_buf_recl*10) + A1B_2050_buf_recl
+
+# save raster as .tif
+terra::writeRaster(
+  trans2,
+  "hist_2005_buf_trans_A1B_2050_buf_recl.tif",
+  overwrite = TRUE
+  )
+
+rs_freq_tab<- freq(trans2) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Developed (stable)"),
+                        value == 3 ~ c("Developed to Natural"), 
+                        value == 10 ~ c("Cropland to Developed"),
+                        value == 11 ~ c("Cropland (stable)"),
+                        value == 12 ~ c("Cropland to Hay/Pasture"),
+                        value == 13~ c("Cropland to Natural"),
+                        value == 20 ~ c("Hay/Pasture to Developed"),
+                        value == 21 ~ c("Hay/Pasture to Cropland"),
+                        value == 22 ~ c("Hay/Pasture (stable)"),
+                        value == 23 ~ c("Hay/Pasture to Natural"),
+                        value == 30 ~ c("Natural to Developed"),
+                        value == 31 ~ c("Natural to Cropland"), 
+                        value == 32 ~ c("Natural to Hay/Pasture"),
+                        value == 33 ~ c("Natural (stable)"))) 
+
+f <- terra::freq(hist_2005_buf_recl) %>% 
+  as.data.frame() %>% 
+  mutate(total_pixel_count = sum(count)) %>% 
+  mutate(total_pixel_area = total_pixel_count * 62500)
+## total pad buffer area (based on foresce pixel count) = 2,383,375,000 m2 
+
+rs_freq_tab <- rs_freq_tab %>%  
+ mutate(total_area = 2402062500) %>%  ## total pad buffer area (based on foresce pixel count) = 2402062500 m2 
+    mutate(frac_land_area = (count*62500)/total_area) %>%  # 250 * 250m = 62,500 m2 for FORE-SCE resolution
+    mutate(frac_land_area_perc =frac_land_area*100 )
+
+sum(rs_freq_tab$frac_land_area_perc) # 97.843% total? 
+
+# write.csv(rs_freq_tab, "hist_2005_buf_to_A1B_2050_buf_trans_recl.csv") # export as csv to make a clean table 
+
+```
+
+
+## lets filter the PAD Unit_NM column to certain PAD polygon buffer regions that are experiencing shifts from natural to developed (based on a quick view from the hist_2005_buf_trans_A1B_2050_buf_recl.tif in QGIS)
+- Ossabaw Island Wildlife Management Area
+- Crystal River Preserve State Park
+- Myakka River State Park
+- Guana Tolomato Matanzas National Estuarine Research Reserve
+```{r}
+## read in shp file with just the buffer regions for all the PAD GAP 1 & 2 polygons
+PAD_buf_10km_unit <- sf::st_read(here("buffer_only_10km_Unit_Nm","buffer_only_10km_Unit_Nm.shp"))
+
+PAD_buf_10km_unit_Ossabaw <- PAD_buf_10km_unit %>% 
+  filter(Unit_Nm %in% c("Ossabaw Island Wildlife Management Area"))
+
+PAD_buf_10km_unit_Crystal <- PAD_buf_10km_unit %>% 
+  filter(Unit_Nm %in% c("Crystal River Preserve State Park"))
+
+PAD_buf_10km_unit_Myakka <- PAD_buf_10km_unit %>% 
+  filter(Unit_Nm %in% c("Myakka River State Park"))
+
+PAD_buf_10km_unit_Guana <- PAD_buf_10km_unit %>% 
+  filter(Unit_Nm %in% c("Guana Tolomato Matanzas National Estuarine Research Reserve"))
+
+## now lets export each of these individual buffered polygons so we can 
+# sf::st_write(PAD_buf_10km_unit_Ossabaw,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_transition_PAD_polygons/PAD_buf_10km_unit_Ossabaw.shp")
+# 
+# sf::st_write(PAD_buf_10km_unit_Crystal,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_transition_PAD_polygons/PAD_buf_10km_unit_Crystal.shp")
+# 
+# sf::st_write(PAD_buf_10km_unit_Myakka,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_transition_PAD_polygons/PAD_buf_10km_unit_Myakka.shp")
+# 
+# sf::st_write(PAD_buf_10km_unit_Guana,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_transition_PAD_polygons/PAD_buf_10km_unit_Guana.shp")
+
+```
+
+
+```{r}
+## now lets fasterize these polygons to the hist_2005_buf_trans_A1B_2050_buf_recl.tif so we can then crop and mask them 
+hist2005_trans_A1B2050_recl <- raster(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
+
+## Ossabaw Island Wildlife Management Area 
+PAD_buf_10km_unit_Ossabaw <- sf::st_read(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Ossabaw.shp"))
+
+PAD_buf_10km_unit_Ossabaw <- st_transform(
+  PAD_buf_10km_unit_Ossabaw,
+  crs=st_crs(hist2005_trans_A1B2050_recl)
+)
+
+PAD_buf_10km_unit_Ossabaw$GAP_Sts = as.numeric(PAD_buf_10km_unit_Ossabaw$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_buf_10km_unit_Ossabaw,
+  raster = hist2005_trans_A1B2050_recl,
+field = "GAP_Sts")
+
+# raster::writeRaster(
+#    raster,
+#    "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Ossabaw.tif",
+#    overwrite = TRUE
+#    )
+
+
+## Crystal River Preserve State Park
+PAD_buf_10km_unit_Crystal <- sf::st_read(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Crystal.shp"))
+
+PAD_buf_10km_unit_Crystal <- st_transform(
+  PAD_buf_10km_unit_Crystal,
+  crs=st_crs(hist2005_trans_A1B2050_recl)
+)
+
+PAD_buf_10km_unit_Crystal$GAP_Sts = as.numeric(PAD_buf_10km_unit_Crystal$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_buf_10km_unit_Crystal,
+  raster = hist2005_trans_A1B2050_recl,
+field = "GAP_Sts")
+
+# raster::writeRaster(
+#    raster,
+#    "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Crystal.tif",
+#    overwrite = TRUE
+#    )
+
+## Myakka River State Park
+PAD_buf_10km_unit_Myakka <- sf::st_read(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakka.shp"))
+
+PAD_buf_10km_unit_Myakka <- st_transform(
+  PAD_buf_10km_unit_Myakka,
+  crs=st_crs(hist2005_trans_A1B2050_recl)
+)
+
+PAD_buf_10km_unit_Myakka$GAP_Sts = as.numeric(PAD_buf_10km_unit_Myakka$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_buf_10km_unit_Myakka,
+  raster = hist2005_trans_A1B2050_recl,
+field = "GAP_Sts")
+
+# raster::writeRaster(
+#    raster,
+#    "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Myakka.tif",
+#    overwrite = TRUE
+#    )
+
+## Guana Tolomato Matanzas National Estuarine Research Reserve
+PAD_buf_10km_unit_Guana <- sf::st_read(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Guana.shp"))
+
+PAD_buf_10km_unit_Guana <- st_transform(
+  PAD_buf_10km_unit_Guana,
+  crs=st_crs(hist2005_trans_A1B2050_recl)
+)
+
+PAD_buf_10km_unit_Guana$GAP_Sts = as.numeric(PAD_buf_10km_unit_Guana$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_buf_10km_unit_Guana,
+  raster = hist2005_trans_A1B2050_recl,
+field = "GAP_Sts")
+
+# raster::writeRaster(
+#    raster,
+#    "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Guana.tif",
+#    overwrite = TRUE
+#    )
+```
+
+## now lets crop and mask to the hist_2005_buf_trans_A1B_2050_buf_recl.tif
+```{r}
+hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
+
+PAD_buf_10km_unit_Ossabaw_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Ossabaw.tif")) 
+
+crs(PAD_buf_10km_unit_Ossabaw_rast) <-  "EPSG:5070"
+crs(hist2005_trans_A1B2050_recl) <-  "EPSG:5070"
+
+crop <- hist2005_trans_A1B2050_recl %>%
+  crop(y = PAD_buf_10km_unit_Ossabaw_rast) %>%
+  mask(mask = PAD_buf_10km_unit_Ossabaw_rast)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Ossabaw_rast.tif",
+  overwrite = TRUE
+  )
+
+hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
+
+PAD_buf_10km_unit_Crystal_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Crystal.tif")) 
+
+crs(PAD_buf_10km_unit_Crystal_rast) <-  "EPSG:5070"
+crs(hist2005_trans_A1B2050_recl) <-  "EPSG:5070"
+
+crop <- hist2005_trans_A1B2050_recl %>%
+  crop(y = PAD_buf_10km_unit_Crystal_rast) %>%
+  mask(mask = PAD_buf_10km_unit_Crystal_rast)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Crystal_rast.tif",
+  overwrite = TRUE
+  )
+
+hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
+
+PAD_buf_10km_unit_Myakkal_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakka.tif")) 
+
+crs(PAD_buf_10km_unit_Myakkal_rast) <-  "EPSG:5070"
+crs(hist2005_trans_A1B2050_recl) <-  "EPSG:5070"
+
+crop <- hist2005_trans_A1B2050_recl %>%
+  crop(y = PAD_buf_10km_unit_Myakkal_rast) %>%
+  mask(mask = PAD_buf_10km_unit_Myakkal_rast)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Myakkal_rast.tif",
+  overwrite = TRUE
+  )
+
+hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
+
+PAD_buf_10km_unit_Guana_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Guana.tif")) 
+
+crs(PAD_buf_10km_unit_Guana_rast) <-  "EPSG:5070"
+crs(hist2005_trans_A1B2050_recl) <-  "EPSG:5070"
+
+crop <- hist2005_trans_A1B2050_recl %>%
+  crop(y = PAD_buf_10km_unit_Guana_rast) %>%
+  mask(mask = PAD_buf_10km_unit_Guana_rast)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Guana_rast.tif",
+  overwrite = TRUE
+  )
+
+```
+
+now look at counts of each class using 'terra::freq'
+```{r}
+PAD_buf_10km_unit_Ossabaw_rast <-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Ossabaw_rast.tif")) 
+
+PAD_buf_10km_unit_Crystal_rast <-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Crystal_rast.tif")) 
+
+PAD_buf_10km_unit_Myakkal_rast <-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakkal_rast.tif")) 
+
+PAD_buf_10km_unit_Guana_rast <-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Guana_rast.tif")) 
+
+Ossabaw_freq_tab<- freq(PAD_buf_10km_unit_Ossabaw_rast) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Developed (stable)"),
+                        value == 3 ~ c("Developed to Natural"), 
+                        value == 10 ~ c("Cropland to Developed"),
+                        value == 11 ~ c("Cropland (stable)"),
+                        value == 12 ~ c("Cropland to Hay/Pasture"),
+                        value == 13~ c("Cropland to Natural"),
+                        value == 20 ~ c("Hay/Pasture to Developed"),
+                        value == 21 ~ c("Hay/Pasture to Cropland"),
+                        value == 22 ~ c("Hay/Pasture (stable)"),
+                        value == 23 ~ c("Hay/Pasture to Natural"),
+                        value == 30 ~ c("Natural to Developed"),
+                        value == 31 ~ c("Natural to Cropland"), 
+                        value == 32 ~ c("Natural to Hay/Pasture"),
+                        value == 33 ~ c("Natural (stable)"))) %>% 
+  filter(value %in% c("3", "10", "20", "30")) ## lets just look at classes that go to and from developed/natural
+
+Crystal_freq_tab<- freq(PAD_buf_10km_unit_Crystal_rast) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Developed (stable)"),
+                        value == 3 ~ c("Developed to Natural"), 
+                        value == 10 ~ c("Cropland to Developed"),
+                        value == 11 ~ c("Cropland (stable)"),
+                        value == 12 ~ c("Cropland to Hay/Pasture"),
+                        value == 13~ c("Cropland to Natural"),
+                        value == 20 ~ c("Hay/Pasture to Developed"),
+                        value == 21 ~ c("Hay/Pasture to Cropland"),
+                        value == 22 ~ c("Hay/Pasture (stable)"),
+                        value == 23 ~ c("Hay/Pasture to Natural"),
+                        value == 30 ~ c("Natural to Developed"),
+                        value == 31 ~ c("Natural to Cropland"), 
+                        value == 32 ~ c("Natural to Hay/Pasture"),
+                        value == 33 ~ c("Natural (stable)")))
+
+Myakkal_freq_tab<- freq(PAD_buf_10km_unit_Myakkal_rast) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Developed (stable)"),
+                        value == 3 ~ c("Developed to Natural"), 
+                        value == 10 ~ c("Cropland to Developed"),
+                        value == 11 ~ c("Cropland (stable)"),
+                        value == 12 ~ c("Cropland to Hay/Pasture"),
+                        value == 13~ c("Cropland to Natural"),
+                        value == 20 ~ c("Hay/Pasture to Developed"),
+                        value == 21 ~ c("Hay/Pasture to Cropland"),
+                        value == 22 ~ c("Hay/Pasture (stable)"),
+                        value == 23 ~ c("Hay/Pasture to Natural"),
+                        value == 30 ~ c("Natural to Developed"),
+                        value == 31 ~ c("Natural to Cropland"), 
+                        value == 32 ~ c("Natural to Hay/Pasture"),
+                        value == 33 ~ c("Natural (stable)"))) 
+
+Guana_freq_tab<- freq(PAD_buf_10km_unit_Guana_rast) %>%  
+  as.data.frame() %>% 
+  select(-layer) %>% 
+   mutate(transition = 
+            case_when(value == 0 ~ c("Developed (stable)"),
+                        value == 3 ~ c("Developed to Natural"), 
+                        value == 10 ~ c("Cropland to Developed"),
+                        value == 11 ~ c("Cropland (stable)"),
+                        value == 12 ~ c("Cropland to Hay/Pasture"),
+                        value == 13~ c("Cropland to Natural"),
+                        value == 20 ~ c("Hay/Pasture to Developed"),
+                        value == 21 ~ c("Hay/Pasture to Cropland"),
+                        value == 22 ~ c("Hay/Pasture (stable)"),
+                        value == 23 ~ c("Hay/Pasture to Natural"),
+                        value == 30 ~ c("Natural to Developed"),
+                        value == 31 ~ c("Natural to Cropland"), 
+                        value == 32 ~ c("Natural to Hay/Pasture"),
+                        value == 33 ~ c("Natural (stable)")))
+
+```
+
+## lets get a count of the total pixels in each of these PAD unit NM buffer regions
+```{r}
+PAD_buf_10km_unit_Ossabaw <-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Ossabaw.tif")) 
+
+Ossabaw_count <- terra::freq(PAD_buf_10km_unit_Ossabaw) %>% 
+  as.data.frame() %>% 
+  mutate(total_pixel_count = sum(count)) %>% 
+  mutate(total_pixel_area = total_pixel_count * 62500) 
+## 53625000 sq mi = Ossabaw 
+
+PAD_buf_10km_unit_Crystal<-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Crystal.tif")) 
+
+Crystal_count <- terra::freq(PAD_buf_10km_unit_Crystal) %>% 
+  as.data.frame() %>% 
+  mutate(total_pixel_count = sum(count)) %>% 
+  mutate(total_pixel_area = total_pixel_count * 62500) 
+## 60437500 sq mi = Crystal 
+
+PAD_buf_10km_unit_Myakkal<-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakkal.tif")) 
+
+Myakkal_count <- terra::freq(PAD_buf_10km_unit_Myakkal) %>% 
+  as.data.frame() %>% 
+  mutate(total_pixel_count = sum(count)) %>% 
+  mutate(total_pixel_area = total_pixel_count * 62500) 
+## 50375000 sq mi = Myakkal 
+
+PAD_buf_10km_unit_Guana<-  rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Guana.tif")) 
+options(scipen=999)
+Guana_count <- terra::freq(PAD_buf_10km_unit_Guana) %>% 
+  as.data.frame() %>% 
+  mutate(total_pixel_count = sum(count)) %>% 
+  mutate(total_pixel_area = total_pixel_count * 62500) 
+## 115000000 sq mi = Guana 
+```
+

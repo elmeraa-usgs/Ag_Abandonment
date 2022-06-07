@@ -1,0 +1,343 @@
+---
+title: "Buffering PAD"
+author: "Elmera Azadpour"
+date: "5/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sf)
+library(fasterize)
+library(raster)
+library(tidyverse)
+library(rgdal)
+library(here)
+library(terra)
+```
+
+## read in PAD data
+```{r}
+PAD_GAP_1_2_eco4<- sf::st_read(here("PAD_dissolve_clip","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US_dissolve_Unit_Nm_clip_eco4.shp")) %>% 
+  dplyr::select(GAP_Sts) 
+
+PAD_df_filt_96km<- sf::st_read(here("PAD_df_filt","PAD_df_BCrange_96km.shp")) %>% 
+  dplyr::select(GAP_Sts) 
+```
+
+## set crs so when we buffer we know the units (meters)
+```{r}
+st_crs(PAD_GAP_1_2_eco4) <-  "EPSG:5070"
+st_crs(PAD_GAP_1_2_eco4)
+
+st_crs(PAD_df_filt_96km) <-  "EPSG:5070"
+st_crs(PAD_df_filt_96km)
+```
+
+# buffer the entire PAD GAP 1&2 SE ecoregion polygons by 10km and then buffer the 96km bobcat range shapefile
+```{r}
+# PAD_GAP_1_2_eco4_10km <- st_buffer(PAD_GAP_1_2_eco4, 10000)
+
+# PAD_df_filt_96km_10km <- st_buffer(PAD_df_filt_96km, 10000)
+
+
+# add buffer, fortunately the base CRS is in meters
+PAD_df_filt_96km_buffered <- st_buffer(PAD_df_filt_96km, 10000) 
+
+# polygon(s) of only the buffer
+buffer_only <- st_difference(PAD_df_filt_96km_buffered, st_union(PAD_df_filt_96km))
+
+plot(buffer_only[1,1])
+plot(PAD_df_filt_96km_buffered[1,1])
+
+# sf::st_write(buffer_only,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_only_10km/buffer_only_10km.shp") # export df as shp to view in qgis 
+```
+
+
+## now lets apply the FORESCE 2050 A1B projection with the 4 classes to the buffered vector
+## our goal here is to see land use change pressure nearby these core areas 
+## see if can calucate % of the different classes in these buffer regions
+```{r}
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_filt_96km_10km_buff <- sf::st_read(here("PAD_df_filt_buffer_10km","PAD_df_BCrange_96km_10km.shp"))
+
+PAD_df_filt_96km_10km_buff <- st_transform(
+  PAD_df_filt_96km_10km_buff,
+  crs=st_crs(template)
+)
+
+PAD_df_filt_96km_10km_buff$GAP_Sts = as.numeric(PAD_df_filt_96km_10km_buff$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_filt_96km_10km_buff,
+  raster = template,
+field = "GAP_Sts")
+
+ plot(raster)
+
+# raster::writeRaster(
+#    raster,
+#    "PAD_df_filt_96km_10km_buff.tif",
+#    overwrite = TRUE
+#    )
+
+## FORESCE LULC
+PAD_filt_96km_10km_buff <- rast(here("PAD_df_filt_buffer_10km", "PAD_df_filt_96km_10km_buff.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt_96km_10km_buff) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt_96km_10km_buff) %>%
+  mask(mask = PAD_filt_96km_10km_buff)
+
+plot(foresce_pad_filt)
+
+# save raster as .tif
+# terra::writeRaster(
+#   foresce_pad_filt,
+#   "FORESCE_2050_A1B_us_extent_96km_buff_10km.tif",
+#   overwrite = TRUE
+#   )
+
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_96km_buff_10km <- rast(here("PAD_df_filt_buffer_10km", "FORESCE_2050_A1B_us_extent_96km_buff_10km.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_96km_buff_10km) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_96km_buff_10km %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+ plot(crop)
+
+# save raster as .tif
+# terra::writeRaster(
+#   crop,
+#   "FORESCE_2050_A1B_eco4_l3_96km_buff_10km.tif",
+#   overwrite = TRUE
+#   )
+```
+
+## cell stats
+```{r}
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km <- rast(here("PAD_df_filt_buffer_10km", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km.tif"))
+
+
+hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km, 
+        ylim=c(0,15000),
+     xaxp = c(0.0, 3.0, 1.0),
+     breaks = 5)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km,
+        ylim=c(0,45000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer")
+
+
+FORESCE_2050_A1B_eco4_l3_96km <- rast(here("PAD_df_filt_BC_96km", "FORESCE_2050_A1B_eco4_l3_96km_filt.tif"))
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km,
+        ylim=c(0,8000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km")
+
+
+
+```
+
+## look at certain larger polygons and what the buffer region around them consists of in terms of % natural, cropland, etc 
+## you'll need to filter 
+```{r}
+## read in BC range 96km shp and filter for larger polygons then buffer and look at the pixels in those buffer regions 
+PAD_df_filt_96km <- sf::st_read(here("PAD_df_filt","PAD_df_BCrange_96km.shp"))
+
+PAD_df_96km_Apalachicola <- PAD_df_filt_96km %>% 
+  filter(Unit_Nm %in% c("Apalachicola National Estuarine Research Reserve"))
+
+PAD_df_96km_Rookery <- PAD_df_filt_96km %>% 
+  filter(Unit_Nm %in% c("Rookery Bay National Estuarine Research Reserve"))
+
+PAD_df_96km_Land_Between <- PAD_df_filt_96km %>% 
+  filter(Unit_Nm %in% c("Land Between The Lakes Wildlife Management Area"))
+
+PAD_df_96km_Cohutta <- PAD_df_filt_96km %>% 
+  filter(Unit_Nm %in% c("Cohutta Wildlife Management Area"))
+
+PAD_df_96km_Kissimmee <- PAD_df_filt_96km %>% 
+  filter(Unit_Nm %in% c("Kissimmee Prairie Preserve State Park"))
+
+## now lets buffer these indiviual polygons 
+PAD_df_96km_Apalachicola_buff <- st_buffer(PAD_df_96km_Apalachicola, 10000)
+PAD_df_96km_Rookery_buff <- st_buffer(PAD_df_96km_Rookery, 10000)
+PAD_df_96km_Land_Between_buff <- st_buffer(PAD_df_96km_Land_Between, 10000)
+PAD_df_96km_Cohutta_buff <- st_buffer(PAD_df_96km_Cohutta, 10000)
+PAD_df_96km_Kissimmee_buff <- st_buffer(PAD_df_96km_Kissimmee, 10000)
+
+## now lets export each of these indiual buffered polygons 
+# sf::st_write(PAD_df_96km_Apalachicola_buff,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons/PAD_df_BCrange_96km_10km_Apalachicola.shp") 
+# 
+# sf::st_write(PAD_df_96km_Rookery_buff,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons/PAD_df_BCrange_96km_10km_Rookery.shp") 
+# 
+# sf::st_write(PAD_df_96km_Land_Between_buff,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons/PAD_df_BCrange_96km_10km_Land_Between.shp") 
+# 
+# sf::st_write(PAD_df_96km_Cohutta_buff,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons/PAD_df_BCrange_96km_10km_Cohutta.shp") 
+# 
+# sf::st_write(PAD_df_96km_Kissimmee_buff,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons/PAD_df_BCrange_96km_10km_Kissimmee.shp") 
+
+## now lets rasterize and crop and mask to the FORESCE data 
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_96km_Kissimmee_buff <- sf::st_read(here("buffer_top_polygons","PAD_df_BCrange_96km_10km_Kissimmee.shp"))
+
+PAD_df_96km_Kissimmee_buff <- st_transform(
+  PAD_df_96km_Kissimmee_buff,
+  crs=st_crs(template)
+)
+
+PAD_df_96km_Kissimmee_buff$GAP_Sts = as.numeric(PAD_df_96km_Kissimmee_buff$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_96km_Kissimmee_buff,
+  raster = template,
+field = "GAP_Sts")
+
+# raster::writeRaster(
+#    raster,
+#    "PAD_df_filt_96km_10km_buff_Kissimmee.tif",
+#    overwrite = TRUE
+#    )
+
+###################################### 
+############  FORESCE LULC ############  
+###################################### 
+
+PAD_filt_96km_10km_buff_Kissimmee<- rast(here("buffer_top_polygons_raster", "PAD_df_filt_96km_10km_buff_Kissimmee.tif"))
+
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt_96km_10km_buff_Kissimmee) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt_96km_10km_buff_Kissimmee) %>%
+  mask(mask = PAD_filt_96km_10km_buff_Kissimmee)
+
+# plot(foresce_pad_filt)
+
+# save raster as .tif
+# terra::writeRaster(
+#   foresce_pad_filt,
+#   "FORESCE_2050_A1B_us_extent_96km_buff_10km_Kissimmee.tif",
+#   overwrite = TRUE
+#   )
+
+
+## next step 
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_96km_buff_10km_Kissimmee <- rast(here("buffer_top_polygons_raster", "FORESCE_2050_A1B_us_extent_96km_buff_10km_Kissimmee.tif"))
+
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_96km_buff_10km_Kissimmee) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_96km_buff_10km_Kissimmee %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+# plot(crop)
+
+# save raster as .tif
+# terra::writeRaster(
+#   crop,
+#   "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Kissimmee.tif",
+#   overwrite = TRUE
+#   )
+
+```
+
+## count of how many FORESCE pixels in each of these polygon regions
+```{r}
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola <- rast(here("buffer_top_polygons_raster", "PAD_sites", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola.tif"))
+
+summary(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+
+# hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola,
+        ylim=c(0,2000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer", 
+        sub = "Unit_Nm = Apalachicola National Estuarine Research Reserve, FL" )
+
+
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Cohutta<- rast(here("buffer_top_polygons_raster", "PAD_sites", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Cohutta.tif"))
+
+summary(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Cohutta)
+
+# hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Cohutta,
+        ylim=c(0,2000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer", 
+        sub = "Unit_Nm =  Cohutta Wildlife Managment Area, GA" )
+
+
+
+
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Rookery<- rast(here("buffer_top_polygons_raster", "PAD_sites", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Rookery.tif"))
+
+summary(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Cohutta)
+
+# hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Rookery,
+        ylim=c(0,2000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer", 
+        sub = "Unit_Nm = Rookery Bay National Estuarine Research Reserve, FL" )
+
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Land_Between <- rast(here("buffer_top_polygons_raster", "PAD_sites", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Land_Between.tif"))
+
+summary(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Land_Between)
+
+# hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Land_Between,
+        ylim=c(0,2000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer", 
+        sub = "Unit_Nm = Land Between the Lakes Wildlife Management Area, TN" )
+
+
+FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Kissimmee<- rast(here("buffer_top_polygons_raster", "PAD_sites", "FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Kissimmee.tif"))
+
+summary(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Kissimmee)
+
+# hist(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Apalachicola)
+
+barplot(FORESCE_2050_A1B_eco4_l3_96km_buff_10km_Kissimmee,
+        ylim=c(0,2000),
+        col = c("#ff1212", "#ffff00", "#ed4cdb", "#33a02c"),
+        names=c("Other", "Cropland", "Hay/Pasture", "Natural"),
+        main = "Bobcat homerange filtered >= 96km with 10km buffer", 
+        sub = "Unit_Nm = Kissimmee Prairie Preserve State Park, FL " )
+
+
+```
+

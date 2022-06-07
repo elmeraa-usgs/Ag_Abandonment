@@ -1,0 +1,59 @@
+---
+title: "fasterize example"
+author: "Elmera Azadpour"
+date: "5/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+## read in packages 
+library(sf)
+library(fasterize)
+library(raster)
+library(tidyverse)
+library(here)
+library(terra)
+```
+
+```{r}
+## read in PAD data using sf::st_read and here 
+ASD_2012_5m <- sf::st_read(here("asds","ASD_2012_5m.shp")) %>% 
+  dplyr::select(STASD_N) 
+
+plot(ASD_2012_5m)
+
+## read in FORESCE tif file to serve as a template to fasterize by 
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+## use st_transform to make sure both files have the same crs codes to fasterize by 
+ASD_2012_5m <- st_transform(
+  ASD_2012_5m,
+  crs=st_crs(template)
+)
+
+
+ASD_2012_5m$STASD_N = as.numeric(ASD_2012_5m$STASD_N) 
+
+## now lets fasterize! 
+raster <- fasterize(
+  sf = ASD_2012_5m,
+  raster = template,
+field = "STASD_N")
+```
+
+
+```{r}
+## plot results 
+plot(raster)
+```
+
+```{r}
+## export as tif 
+raster::writeRaster(
+   raster,
+   "ASD_2012_5m.tif",
+   overwrite = TRUE
+   )
+```
+

@@ -1,0 +1,637 @@
+---
+title: "reclassification/rasterization"
+author: "Elmera Azadpour"
+date: "4/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sf)
+library(fasterize)
+library(raster)
+library(tidyverse)
+library(rgdal)
+library(here)
+library(terra)
+```
+
+## st_transform() gap to match foresce raster crs
+## fasteruze gap data to final raster for foresce
+```{r}
+PAD_GAP_1_2_US <- sf::st_read(here("PAD","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US.shp")) %>% 
+  dplyr::select(GAP_Sts) 
+
+
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+PAD_GAP_1_2_US <- st_transform(
+  PAD_GAP_1_2_US,
+  crs=st_crs(template)
+)
+
+
+PAD_GAP_1_2_US$GAP_Sts = as.numeric(PAD_GAP_1_2_US$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_GAP_1_2_US,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+# raster::writeRaster(
+#    raster,
+#    "PAD_GAP_1_2.tif",
+#    overwrite = TRUE
+#    )
+```
+
+
+## now lets crop and mask the new PAD_GAP_1_2.tif to the FORESCEA1B 2050 eco4 level3 
+```{r}
+GAP12 <- rast(here("PAD_1_2_rasters", "PAD_GAP_1_2.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+plot(GAP12)
+plot(FORESCE_A1B)
+# set crs so they're the same 
+crs(GAP12) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad <- FORESCE_A1B %>%
+  crop(y = GAP12) %>%
+  mask(mask = GAP12)
+
+plot(foresce_pad)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad,
+  "FORESCE_2050_A1B_us_extent.tif",
+  overwrite = TRUE
+  )
+```
+
+
+## now we can crop that new FORESCE_2050_A1B_us_extent.tif to the FORESCE2050A1B_eco_4_Level_3_2013.tif 
+```{r}
+FORESCE_A1B_eco4lev3_us <- rast(here("FORESCE_2050_A1B_us_extent.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_A1B_eco4lev3_us) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_A1B_eco4lev3_us %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3.tif",
+  overwrite = TRUE
+  )
+
+```
+
+
+
+## Read in filtered area > 10000m2 or (1 ha), > 25000m2 (2.5ha) and > 50000m2 (5ha) - note: filtering was done in qgis
+```{r}
+PAD_GAP_1_2_US_6.25ha <- sf::st_read(here("PAD_6.25ha_v2","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US_6.25ha_v2.shp")) %>% 
+  dplyr::select(GAP_Sts) 
+
+PAD_GAP_1_2_US_6.25ha <- st_transform(
+  PAD_GAP_1_2_US_6.25ha,
+  crs=st_crs(template)
+)
+
+
+PAD_GAP_1_2_US_6.25ha$GAP_Sts = as.numeric(PAD_GAP_1_2_US_6.25ha$GAP_Sts)
+
+raster_6.5ha <- fasterize(
+  sf = PAD_GAP_1_2_US_6.25ha,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster_6.5ha)
+
+raster::writeRaster(
+   raster_6.5ha,
+   "PAD_GAP_1_2_6.25ha_v2.tif",
+   overwrite = TRUE
+   )
+```
+
+
+# cropping  mask the new PAD_GAP_1_2_1ha.tif,  PAD_GAP_1_2_2_5ha.tif,  PAD_GAP_1_2_5ha.tif to the FORESCEA1B 2050 eco4 level3 
+```{r}
+GAP12_6.25ha <- rast(here("PAD_1_2_rasters","PAD_GAP_1_2_6.25ha.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(GAP12_6.25ha) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_6.25ha <- FORESCE_A1B %>%
+  crop(y = GAP12_6.25ha) %>%
+  mask(mask = GAP12_6.25ha)
+
+plot(foresce_pad_6.25ha)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad_6.25ha,
+  "FORESCE_2050_A1B_us_extent_6.25ha.tif",
+  overwrite = TRUE
+  )
+
+
+## now we now we can crop that new FORESCE_2050_A1B_us_extent_[ha].tif to the FORESCE2050A1B_eco_4_Level_3_2013.tif
+
+FORESCE_A1B_eco4lev3_us_6.25ha <- rast(here("FORESCE_PAD_6.25ha", "FORESCE_2050_A1B_us_extent_6.25ha.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_A1B_eco4lev3_us_6.25ha) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_A1B_eco4lev3_us_6.25ha %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3_6.25ha.tif",
+  overwrite = TRUE
+  )
+
+
+```
+
+
+
+
+## difference?
+```{r}
+newtest = raster_5ha - raster_1ha
+plot(newtest)
+
+```
+
+
+```{r}
+PAD_GAP_1_2_US_5ha <- sf::st_read(here("PAD","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US.shp")) %>% 
+  dplyr::filter(SHAPE_Area > 50000) %>% # filter for geometries greater than 1ha
+  dplyr::select(GAP_Sts)
+
+# plot(PAD_GAP_1_2_US_1ha)
+
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_GAP_1_2_US_5ha <- st_transform(
+  PAD_GAP_1_2_US_5ha,
+  crs=st_crs(template)
+)
+
+
+PAD_GAP_1_2_US_5ha$GAP_Sts = as.numeric(PAD_GAP_1_2_US_5ha$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_GAP_1_2_US_5ha,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+raster::writeRaster(
+   raster,
+   "PAD_GAP_1_2_5ha_v2.tif",
+   overwrite = TRUE
+   )
+
+## FORESCE LULC
+GAP12_5ha <- rast(here("PAD_1_2_rasters","PAD_GAP_1_2_5ha_v2.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(GAP12_5ha) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_5ha <- FORESCE_A1B %>%
+  crop(y = GAP12_5ha) %>%
+  mask(mask = GAP12_5ha)
+
+# plot(foresce_pad_6.25ha)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad_5ha,
+  "FORESCE_2050_A1B_us_extent_5ha_v2.tif",
+  overwrite = TRUE
+  )
+
+## now crop to SE US
+FORESCE_A1B_eco4lev3_us_1ha <- rast(here("FORESCE_PAD_1ha", "FORESCE_2050_A1B_us_extent_1ha_v2.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_A1B_eco4lev3_us_1ha) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_A1B_eco4lev3_us_1ha %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3_1ha_v2.tif",
+  overwrite = TRUE
+  )
+
+```
+
+
+
+```{r}
+PAD_GAP_1_2_US<- sf::st_read(here("PAD","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US.shp")) 
+
+# reg4_eco_l4 <- sf::st_read(here("reg4_eco_l4","reg4_eco_l4.shp")) %>% 
+#  st_transform(st_crs(PAD_GAP_1_2_US))
+
+
+PAD_GAP_1_2_US_dissolve_clip <- sf::st_read(here("PAD_dissolve_clip","PADUS2_1Combined_Proclamation_Fee_Designation_Easement_GAP1_2_US_dissolve_Unit_Nm_clip_eco4.shp")) 
+
+# geom_histogram(PAD_GAP_1_2_US_dissolve$SHAPE_Area)
+
+PAD_df<- data_frame(PAD_GAP_1_2_US_dissolve_clip$Unit_Nm)  %>% 
+  mutate(Category = PAD_GAP_1_2_US_dissolve_clip$Category,
+         Loc_Mang = PAD_GAP_1_2_US_dissolve_clip$Loc_Mang,
+         State_Nm = PAD_GAP_1_2_US_dissolve_clip$State_Nm,
+         GIS_Acres = PAD_GAP_1_2_US_dissolve_clip$GIS_Acres,
+         GAP_Sts = PAD_GAP_1_2_US_dissolve_clip$GAP_Sts,
+    Unit_Nm = PAD_GAP_1_2_US_dissolve_clip$Unit_Nm,
+         shape_leng = PAD_GAP_1_2_US_dissolve_clip$SHAPE_Leng,
+         shape_area = PAD_GAP_1_2_US_dissolve_clip$SHAPE_Area,
+         geometry = PAD_GAP_1_2_US_dissolve_clip$geometry) 
+ 
+options(scipen=999)
+
+hist(PAD_df$shape_leng, breaks = 20, col = "lightblue",
+     ylim=c(0,3500),
+     xaxp = c(0, 1200000, 10))
+
+hist(PAD_df$shape_area, breaks = 20, col = "lightblue",
+     ylim=c(0,3500),
+     xaxp = c(0, 400000000, 10))
+
+hist(PAD_df$GIS_Acres, breaks = 20, col = "lightblue",
+     ylim=c(0,3500))
+
+```
+
+```{r}
+PAD_df_filt <- PAD_df %>% 
+  select(-`PAD_GAP_1_2_US_dissolve_clip$Unit_Nm`) %>% 
+  filter(shape_area >= 500000) %>% 
+  arrange(desc(shape_area)) %>% 
+  slice_max(shape_area, n = 927) ## selecting top 50% of shape area geometrys 
+
+hist(PAD_df_filt$shape_area, breaks = 20, col = "lightblue")
+
+sf::st_write(PAD_df_filt,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/PAD_df_filt/PAD_df_filt.shp") # export df as shp to view in qgis 
+
+```
+
+## check to see if GIS_Area column is comparable
+## yes 1855 vs 1844 observarions >50 ha or 123.44 acres 
+```{r}
+# PAD_df_filt_2 <- PAD_df %>% 
+#   select(-`PAD_GAP_1_2_US_dissolve_clip$Unit_Nm`) %>% 
+#   filter(GIS_Acres >= 123.55) %>% 
+#   arrange(desc(GIS_Acres)) ## selecting top 50% of shape area geometrys 
+```
+
+
+## now lets rasterize the shp file with the FORESCE tif as template
+```{r}
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_filt_shp <- sf::st_read(here("PAD_df_filt","PAD_df_filt.shp"))
+
+PAD_df_filt_shp <- st_transform(
+  PAD_df_filt_shp,
+  crs=st_crs(template)
+)
+
+PAD_df_filt_shp$GAP_Sts = as.numeric(PAD_df_filt_shp$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_filt_shp_shp,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+raster::writeRaster(
+   raster,
+   "PAD_filt.tif",
+   overwrite = TRUE
+   )
+
+## FORESCE LULC
+PAD_filt <- rast(here("PAD_filt.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt) %>%
+  mask(mask = PAD_filt)
+
+# plot(foresce_pad_filt)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad_filt,
+  "FORESCE_2050_A1B_us_extent_50ha_filt.tif",
+  overwrite = TRUE
+  )
+
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_50ha <- rast(here("FORESCE_2050_A1B_us_extent_50ha_filt.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_50ha) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_50ha %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3_50ha_filt.tif",
+  overwrite = TRUE
+  )
+```
+
+## lets do the same thing now but for 25ha 
+```{r}
+PAD_df_filt_25ha <- PAD_df %>% 
+  select(-`PAD_GAP_1_2_US_dissolve_clip$Unit_Nm`) %>% 
+  filter(shape_area >= 250000) %>% 
+  arrange(desc(shape_area)) %>% 
+  slice_max(shape_area, n = 1145) ## selecting top 50% of shape area geometrys 
+
+
+hist(PAD_df_filt_25ha$shape_area, breaks = 20, col = "lightblue")
+
+sf::st_write(PAD_df_filt_25ha,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/PAD_df_filt_25ha/PAD_df_filt_25ha.shp") # export df as shp to view in qgis 
+
+```
+
+## now lets rasterize the 25ha PAD shp file with the FORESCE tif as template and then crop and mask
+```{r}
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_filt_25ha_shp <- sf::st_read(here("PAD_df_filt_25ha","PAD_df_filt_25ha.shp"))
+
+PAD_df_filt_25ha_shp <- st_transform(
+  PAD_df_filt_25ha_shp,
+  crs=st_crs(template)
+)
+
+PAD_df_filt_25ha_shp$GAP_Sts = as.numeric(PAD_df_filt_25ha_shp$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_filt_25ha_shp,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+raster::writeRaster(
+   raster,
+   "PAD_filt_25ha.tif",
+   overwrite = TRUE
+   )
+
+## FORESCE LULC
+PAD_filt_25ha <- rast(here("PAD_filt_25ha.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt_25ha) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt_25ha) %>%
+  mask(mask = PAD_filt_25ha)
+
+# plot(foresce_pad_filt)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad_filt,
+  "FORESCE_2050_A1B_us_extent_25ha_filt.tif",
+  overwrite = TRUE
+  )
+
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_25ha <- rast(here("FORESCE_2050_A1B_us_extent_25ha_filt.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_25ha) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_25ha %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3_25ha_filt.tif",
+  overwrite = TRUE
+  )
+```
+
+## filter for bobcat range, 23km^2 based on https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0194243 
+## other papers: 95.7 km2  based on https://www.jstor.org/stable/3801498?casa_token=KXmnO1z2bAIAAAAA%3A1kcBM2luAbYn3fyNBOutIAuYG8K6Md9PIJJSs5JrNoJkXmSwYPHlskgyMl34QAO4O_GXNBz623KTnWZo7Jzoq3UcS9CxUYb8R8n09JKy7N_7Z9Y8klSm&seq=1
+## another paper: 57.3 km2  based on https://www.sciencedirect.com/science/article/abs/pii/S0006320711002539 
+```{r}
+PAD_df_filt <- PAD_df %>% 
+  select(-`PAD_GAP_1_2_US_dissolve_clip$Unit_Nm`) %>% 
+  filter(shape_area >=63450000) %>% 
+  arrange(desc(shape_area))  ## n = 230 
+
+# hist(PAD_df_filt$shape_area, breaks = 20, col = "lightblue")
+
+sf::st_write(PAD_df_filt,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/PAD_df_filt/PAD_df_BCrange_63km.shp") # export df as shp to view in qgis 
+
+```
+
+
+## now lets rasterize the bobcat home range shps and include the bobcat home range PAD tif with the FORESCE tif as template and then crop and mask
+```{r}
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_filt_63km_shp <- sf::st_read(here("PAD_df_filt","PAD_df_BCrange_63km.shp"))
+
+PAD_df_filt_63km_shp <- st_transform(
+  PAD_df_filt_63km_shp,
+  crs=st_crs(template)
+)
+
+PAD_df_filt_63km_shp$GAP_Sts = as.numeric(PAD_df_filt_63km_shp$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_filt_63km_shp,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+raster::writeRaster(
+   raster,
+   "PAD_filt_63km.tif",
+   overwrite = TRUE
+   )
+
+
+## FORESCE LULC
+PAD_filt_63km <- rast(here("PAD_filt_63km.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt_63km) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt_63km) %>%
+  mask(mask = PAD_filt_63km)
+
+# plot(foresce_pad_filt)
+
+# save raster as .tif
+terra::writeRaster(
+  foresce_pad_filt,
+  "FORESCE_2050_A1B_us_extent_63km_filt.tif",
+  overwrite = TRUE
+  )
+
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_63km <- rast(here("FORESCE_2050_A1B_us_extent_63km_filt.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_63km) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_63km %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+# plot(crop)
+
+# save raster as .tif
+terra::writeRaster(
+  crop,
+  "FORESCE_2050_A1B_eco4_l3_63km_filt.tif",
+  overwrite = TRUE
+  )
+```
+## filter bobcat range by Litvaitis et al., 1986 (maine study)  male bobcats range 95.7km2 (9.57e+7 m2)
+```{r}
+PAD_df_filt_96km <- PAD_df %>% 
+  select(-`PAD_GAP_1_2_US_dissolve_clip$Unit_Nm`) %>% 
+  filter(shape_area >=9.57e+7) %>% 
+  arrange(desc(shape_area))  ## n = 44
+
+# hist(PAD_df_filt$shape_area, breaks = 20, col = "lightblue")
+
+sf::st_write(PAD_df_filt_96km,"~/Desktop/FORESCE_PAD/FORESSCE_PAD/PAD_df_filt/PAD_df_BCrange_96km.shp") # export df as shp to view in qgis 
+```
+
+## now lets rasterize the bobcat home range shps and include the bobcat home range PAD tif with the FORESCE tif as template and then crop and mask
+```{r}
+template <- raster(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif")) 
+
+PAD_df_filt_96km_shp <- sf::st_read(here("PAD_df_filt","PAD_df_BCrange_96km.shp"))
+
+PAD_df_filt_96km_shp <- st_transform(
+  PAD_df_filt_96km_shp,
+  crs=st_crs(template)
+)
+
+PAD_df_filt_96km_shp$GAP_Sts = as.numeric(PAD_df_filt_96km_shp$GAP_Sts)
+
+raster <- fasterize(
+  sf = PAD_df_filt_96km_shp,
+  raster = template,
+field = "GAP_Sts")
+
+plot(raster)
+
+# raster::writeRaster(
+#    raster,
+#    "PAD_filt_96km.tif",
+#    overwrite = TRUE
+#    )
+
+
+## FORESCE LULC
+PAD_filt_96km <- rast(here("PAD_filt_96km.tif"))
+FORESCE_A1B <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013_us_extent.tif"))
+
+# set crs so they're the same 
+crs(PAD_filt_96km) <-  "EPSG:5070"
+crs(FORESCE_A1B) <-  "EPSG:5070"
+
+foresce_pad_filt <- FORESCE_A1B %>%
+  crop(y = PAD_filt_96km) %>%
+  mask(mask = PAD_filt_96km)
+
+# plot(foresce_pad_filt)
+
+# save raster as .tif
+# terra::writeRaster(
+#   foresce_pad_filt,
+#   "FORESCE_2050_A1B_us_extent_96km_filt.tif",
+#   overwrite = TRUE
+#   )
+
+## now crop to SE US
+FORESCE_2050_A1B_us_extent_96km <- rast(here("FORESCE_2050_A1B_us_extent_96km_filt.tif"))
+FORESCE_A1B_eco4lev3 <- rast(here("FORESCE2050A1B_eco_4_Level_3_2013.tif"))
+
+crs(FORESCE_2050_A1B_us_extent_96km) <-  "EPSG:5070"
+crs(FORESCE_A1B_eco4lev3) <-  "EPSG:5070"
+
+crop <- FORESCE_2050_A1B_us_extent_96km %>%
+  crop(y = FORESCE_A1B_eco4lev3) %>%
+  mask(mask = FORESCE_A1B_eco4lev3)
+
+# plot(crop)
+
+# save raster as .tif
+# terra::writeRaster(
+#   crop,
+#   "FORESCE_2050_A1B_eco4_l3_96km_filt.tif",
+#   overwrite = TRUE
+#   )
+```
