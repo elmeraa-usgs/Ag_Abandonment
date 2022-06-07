@@ -1,0 +1,651 @@
+﻿unit,area_sq_m,class,projection,year,count,fractional_land_area
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,historical,2005,612,0.019872433
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2050,613,0.019904904
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2060,615,0.019969847
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2070,615,0.019969847
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2080,610,0.019807491
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2090,614,0.019937376
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A1B,2100,614,0.019937376
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2050,612,0.019872433
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2060,615,0.019969847
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2070,617,0.02003479
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2080,624,0.020262089
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2090,629,0.020424445
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,A2,2100,631,0.020489388
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2050,609,0.019775019
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2060,607,0.019710077
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2070,608,0.019742548
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2080,611,0.019839962
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2090,612,0.019872433
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B1,2100,613,0.019904904
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2050,613,0.019904904
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2060,610,0.019807491
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2070,612,0.019872433
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2080,613,0.019904904
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2090,612,0.019872433
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,other,B2,2100,611,0.019839962
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,historical,2005,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2050,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2060,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2070,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2080,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2090,491,0.015943406
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A1B,2100,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2050,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2060,490,0.015910935
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2070,491,0.015943406
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2080,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2090,494,0.01604082
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,A2,2100,495,0.016073292
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2050,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2060,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2070,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2080,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2090,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B1,2100,493,0.016008349
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2050,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2060,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2070,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2080,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2090,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,water,B2,2100,492,0.015975878
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,historical,2005,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2050,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2060,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2070,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2080,49,0.001591094
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2090,51,0.001656036
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A1B,2100,53,0.001720979
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2050,49,0.001591094
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2060,47,0.001526151
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2070,49,0.001591094
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2080,52,0.001688507
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2090,62,0.00201322
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,A2,2100,66,0.002143106
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2050,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2060,45,0.001461208
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2070,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2080,47,0.001526151
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2090,47,0.001526151
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B1,2100,47,0.001526151
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2050,45,0.001461208
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2060,45,0.001461208
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2070,45,0.001461208
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2080,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2090,45,0.001461208
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,developed,B2,2100,46,0.00149368
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,historical,2005,97,0.003149716
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2050,90,0.002922417
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2060,90,0.002922417
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2070,90,0.002922417
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2080,97,0.003149716
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2090,89,0.002889945
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A1B,2100,86,0.002792531
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2050,100,0.00324713
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2060,109,0.003539371
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2070,90,0.002922417
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2080,90,0.002922417
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2090,84,0.002727589
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,A2,2100,77,0.00250029
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2050,103,0.003344543
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2060,101,0.003279601
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2070,103,0.003344543
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2080,102,0.003312072
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2090,108,0.0035069
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B1,2100,106,0.003441957
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2050,107,0.003474429
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2060,106,0.003441957
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2070,93,0.003019831
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2080,98,0.003182187
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2090,110,0.003571843
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,cropland,B2,2100,100,0.00324713
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,historical,2005,126,0.004091383
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2050,115,0.003734199
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2060,112,0.003636785
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2070,112,0.003636785
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2080,98,0.003182187
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2090,106,0.003441957
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A1B,2100,103,0.003344543
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2050,104,0.003377015
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2060,95,0.003084773
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2070,101,0.003279601
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2080,94,0.003052302
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2090,89,0.002889945
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,A2,2100,91,0.002954888
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2050,108,0.0035069
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2060,113,0.003669256
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2070,112,0.003636785
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2080,109,0.003539371
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2090,108,0.0035069
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B1,2100,108,0.0035069
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2050,102,0.003312072
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2060,106,0.003441957
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2070,113,0.003669256
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2080,105,0.003409486
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2090,105,0.003409486
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,hay/pasture,B2,2100,108,0.0035069
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,historical,2005,559,0.018151454
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2050,576,0.018703467
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2060,577,0.018735938
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2070,577,0.018735938
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2080,586,0.019028179
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2090,579,0.01880088
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A1B,2100,582,0.018898294
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2050,575,0.018670995
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2060,574,0.018638524
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2070,582,0.018898294
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2080,578,0.018768409
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2090,572,0.018573581
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,A2,2100,570,0.018508639
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2050,572,0.018573581
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2060,572,0.018573581
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2070,569,0.018476167
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2080,569,0.018476167
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2090,563,0.01828134
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B1,2100,563,0.01828134
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2050,571,0.01854111
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2060,571,0.01854111
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2070,575,0.018670995
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2080,576,0.018703467
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2090,566,0.018378754
+"Apalachicola National Estuarine Research Reserve, FL",1924776884,natural,B2,2100,573,0.018606053
+"Cohutta Wildlife Management Area, GA",1191980361,other,historical,2005,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2050,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2060,16,0.00083894
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2070,16,0.00083894
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2080,16,0.00083894
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2090,17,0.000891374
+"Cohutta Wildlife Management Area, GA",1191980361,other,A1B,2100,17,0.000891374
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2050,17,0.000891374
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2060,17,0.000891374
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2070,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2080,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2090,18,0.000943807
+"Cohutta Wildlife Management Area, GA",1191980361,other,A2,2100,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2050,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2060,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2070,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2080,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2090,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B1,2100,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2050,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2060,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2070,12,0.000629205
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2080,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2090,12,0.000629205
+"Cohutta Wildlife Management Area, GA",1191980361,other,B2,2100,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,historical,2005,18,0.000943807
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2050,19,0.000996241
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2060,20,0.001048675
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2070,20,0.001048675
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2080,21,0.001101109
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2090,19,0.000996241
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A1B,2100,24,0.00125841
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2050,21,0.001101109
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2060,24,0.00125841
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2070,30,0.001573012
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2080,43,0.002254651
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2090,56,0.00293629
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,A2,2100,77,0.004037399
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2050,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2060,14,0.000734072
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2070,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2080,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2090,18,0.000943807
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B1,2100,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2050,15,0.000786506
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2060,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2070,13,0.000681639
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2080,11,0.000576771
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2090,11,0.000576771
+"Cohutta Wildlife Management Area, GA",1191980361,cropland,B2,2100,11,0.000576771
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,historical,2005,4,0.000209735
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2050,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2060,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2070,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2080,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2090,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A1B,2100,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2050,4,0.000209735
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2060,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2070,5,0.000262169
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2080,11,0.000576771
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2090,20,0.001048675
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,A2,2100,28,0.001468145
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2050,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2060,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2070,3,0.000157301
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2080,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2090,1,5.24337E-05
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B1,2100,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2050,1,5.24337E-05
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2060,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2070,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2080,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2090,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,hay/pasture,B2,2100,2,0.000104867
+"Cohutta Wildlife Management Area, GA",1191980361,natural,historical,2005,1159,0.060770716
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2050,1157,0.060665849
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2060,1156,0.060613415
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2070,1156,0.060613415
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2080,1154,0.060508547
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2090,1155,0.060560981
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A1B,2100,1150,0.060298812
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2050,1152,0.06040368
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2060,1150,0.060298812
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2070,1146,0.060089077
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2080,1125,0.058987969
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2090,1100,0.057677125
+"Cohutta Wildlife Management Area, GA",1191980361,natural,A2,2100,1075,0.056366281
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2050,1163,0.060980451
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2060,1164,0.061032885
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2070,1163,0.060980451
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2080,1164,0.061032885
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2090,1161,0.060875584
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B1,2100,1164,0.061032885
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2050,1164,0.061032885
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2060,1165,0.061085319
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2070,1167,0.061190186
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2080,1167,0.061190186
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2090,1169,0.061295054
+"Cohutta Wildlife Management Area, GA",1191980361,natural,B2,2100,1168,0.06124262
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,historical,2005,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2050,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2060,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2070,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2080,7,0.00041429
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2090,7,0.00041429
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A1B,2100,9,0.000532659
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2050,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2060,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2070,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2080,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2090,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,A2,2100,5,0.000295922
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2050,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2060,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2070,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2080,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2090,4,0.000236737
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B1,2100,5,0.000295922
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2050,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2060,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2070,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2080,3,0.000177553
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2090,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,other,B2,2100,2,0.000118369
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,historical,2005,350,0.020714511
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2050,373,0.02207575
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2060,372,0.022016566
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2070,372,0.022016566
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2080,373,0.02207575
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2090,372,0.022016566
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A1B,2100,377,0.022312487
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2050,347,0.020536958
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2060,354,0.020951248
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2070,361,0.021365538
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2080,355,0.021010432
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2090,362,0.021424722
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,A2,2100,369,0.021839013
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2050,341,0.020181852
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2060,344,0.020359405
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2070,340,0.020122667
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2080,341,0.020181852
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2090,335,0.019826746
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B1,2100,336,0.01988593
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2050,339,0.020063483
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2060,342,0.020241036
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2070,335,0.019826746
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2080,332,0.019649193
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2090,323,0.019116534
+"Kissimmee Prairie Preserve State Park, FL",1056023017,cropland,B2,2100,305,0.018051216
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,historical,2005,183,0.01083073
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2050,177,0.010475624
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2060,174,0.010298071
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2070,174,0.010298071
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2080,173,0.010238887
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2090,169,0.010002149
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A1B,2100,166,0.009824596
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2050,198,0.011718495
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2060,198,0.011718495
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2070,198,0.011718495
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2080,202,0.011955232
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2090,196,0.011600126
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,A2,2100,189,0.011185836
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2050,197,0.01165931
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2060,197,0.01165931
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2070,200,0.011836863
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2080,200,0.011836863
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2090,200,0.011836863
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B1,2100,200,0.011836863
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2050,200,0.011836863
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2060,196,0.011600126
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2070,193,0.011422573
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2080,189,0.011185836
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2090,179,0.010593993
+"Kissimmee Prairie Preserve State Park, FL",1056023017,hay/pasture,B2,2100,175,0.010357255
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,historical,2005,520,0.030775844
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2050,502,0.029710527
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2060,506,0.029947264
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2070,506,0.029947264
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2080,503,0.029769711
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2090,508,0.030065633
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A1B,2100,504,0.029828895
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2050,509,0.030124817
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2060,502,0.029710527
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2070,494,0.029237052
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2080,496,0.029355421
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2090,494,0.029237052
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,A2,2100,493,0.029177868
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2050,516,0.030539107
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2060,512,0.03030237
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2070,512,0.03030237
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2080,512,0.03030237
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2090,517,0.030598291
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B1,2100,515,0.030479923
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2050,514,0.030420738
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2060,515,0.030479923
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2070,526,0.03113095
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2080,532,0.031486056
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2090,552,0.032669742
+"Kissimmee Prairie Preserve State Park, FL",1056023017,natural,B2,2100,574,0.033971797
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,historical,2005,94,0.005420048
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2050,103,0.005938989
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2060,123,0.007092191
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2070,123,0.007092191
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2080,111,0.006400269
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2090,117,0.00674623
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A1B,2100,118,0.00680389
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2050,104,0.005996649
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2060,108,0.006227289
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2070,109,0.006284949
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2080,109,0.006284949
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2090,94,0.005420048
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,A2,2100,87,0.005016427
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2050,88,0.005074088
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2060,88,0.005074088
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2070,85,0.004901107
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2080,85,0.004901107
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2090,86,0.004958767
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B1,2100,89,0.005131748
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2050,93,0.005362388
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2060,94,0.005420048
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2070,91,0.005247068
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2080,90,0.005189408
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2090,89,0.005131748
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,other,B2,2100,89,0.005131748
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,historical,2005,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2050,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2060,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2070,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2080,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2090,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A1B,2100,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2050,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2060,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2070,73,0.004209186
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2080,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2090,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,A2,2100,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2050,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2060,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2070,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2080,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2090,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B1,2100,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2050,72,0.004151526
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2060,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2070,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2080,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2090,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,water,B2,2100,71,0.004093866
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,historical,2005,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2050,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2060,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2070,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2080,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2090,41,0.002364064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A1B,2100,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2050,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2060,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2070,41,0.002364064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2080,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2090,40,0.002306403
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,A2,2100,40,0.002306403
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2050,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2060,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2070,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2080,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2090,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B1,2100,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2050,42,0.002421724
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2060,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2070,44,0.002537044
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2080,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2090,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,developed,B2,2100,43,0.002479384
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,historical,2005,6,0.000345961
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2050,9,0.000518941
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2060,8,0.000461281
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2070,8,0.000461281
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2080,10,0.000576601
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2090,8,0.000461281
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A1B,2100,9,0.000518941
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2050,4,0.00023064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2060,4,0.00023064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2070,6,0.000345961
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2080,7,0.000403621
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2090,10,0.000576601
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,A2,2100,33,0.001902783
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2050,4,0.00023064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2060,4,0.00023064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2070,5,0.0002883
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2080,5,0.0002883
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2090,5,0.0002883
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B1,2100,5,0.0002883
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2050,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2060,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2070,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2080,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2090,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,cropland,B2,2100,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,historical,2005,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2050,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2060,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2070,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2080,1,5.76601E-05
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2090,3,0.00017298
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A1B,2100,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2050,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2060,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2070,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2080,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2090,4,0.00023064
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,A2,2100,8,0.000461281
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2050,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2060,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2070,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2080,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2090,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B1,2100,2,0.00011532
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2050,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2060,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2070,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2080,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2090,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,hay/pasture,B2,2100,0,0
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,historical,2005,869,0.050106614
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2050,856,0.049357033
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2060,836,0.048203831
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2070,836,0.048203831
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2080,848,0.048895752
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2090,844,0.048665112
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A1B,2100,841,0.048492132
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2050,859,0.049530013
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2060,856,0.049357033
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2070,853,0.049184053
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2080,852,0.049126393
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2090,864,0.049818314
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,A2,2100,845,0.048722772
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2050,877,0.050567895
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2060,877,0.050567895
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2070,879,0.050683215
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2080,879,0.050683215
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2090,878,0.050625555
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B1,2100,875,0.050452575
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2050,876,0.050510235
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2060,875,0.050452575
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2070,877,0.050567895
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2080,879,0.050683215
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2090,880,0.050740875
+"Land Between the Lakes Wildlife Management Area, TN",1083938735,natural,B2,2100,880,0.050740875
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,historical,2005,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2050,421,0.018755593
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2060,423,0.018844693
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2070,423,0.018844693
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2080,427,0.019022894
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2090,432,0.019245644
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A1B,2100,436,0.019423844
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2050,421,0.018755593
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2060,420,0.018711043
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2070,426,0.018978343
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2080,432,0.019245644
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2090,434,0.019334744
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,A2,2100,436,0.019423844
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2050,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2060,436,0.019423844
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2070,434,0.019334744
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2080,433,0.019290194
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2090,432,0.019245644
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B1,2100,433,0.019290194
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2050,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2060,434,0.019334744
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2070,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2080,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2090,436,0.019423844
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,other,B2,2100,435,0.019379294
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,historical,2005,157,0.006994366
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2050,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2060,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2070,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2080,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2090,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A1B,2100,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2050,159,0.007083466
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2060,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2070,161,0.007172566
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2080,162,0.007217117
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2090,162,0.007217117
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,A2,2100,162,0.007217117
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2050,159,0.007083466
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2060,159,0.007083466
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2070,159,0.007083466
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2080,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2090,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B1,2100,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2050,159,0.007083466
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2060,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2070,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2080,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2090,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,water,B2,2100,160,0.007128016
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,historical,2005,52,0.002316605
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2050,79,0.003519458
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2060,84,0.003742209
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2070,84,0.003742209
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2080,93,0.004143159
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2090,97,0.00432136
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A1B,2100,99,0.00441046
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2050,85,0.003786759
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2060,85,0.003786759
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2070,89,0.003964959
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2080,98,0.00436591
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2090,109,0.004855961
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,A2,2100,119,0.005301462
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2050,63,0.002806656
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2060,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2070,71,0.003163057
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2080,72,0.003207607
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2090,74,0.003296708
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B1,2100,77,0.003430358
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2050,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2060,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2070,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2080,69,0.003073957
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2090,71,0.003163057
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,developed,B2,2100,71,0.003163057
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,historical,2005,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2050,46,0.002049305
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2060,43,0.001915654
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2070,43,0.001915654
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2080,48,0.002138405
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2090,47,0.002093855
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A1B,2100,50,0.002227505
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2050,61,0.002717556
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2060,56,0.002494806
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2070,55,0.002450256
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2080,51,0.002272055
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2090,50,0.002227505
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,A2,2100,43,0.001915654
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2050,48,0.002138405
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2060,50,0.002227505
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2070,51,0.002272055
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2080,50,0.002227505
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2090,45,0.002004755
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B1,2100,44,0.001960204
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2050,53,0.002361155
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2060,52,0.002316605
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2070,53,0.002361155
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2080,56,0.002494806
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2090,55,0.002450256
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,cropland,B2,2100,57,0.002539356
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,historical,2005,82,0.003653108
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2050,69,0.003073957
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2060,70,0.003118507
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2070,70,0.003118507
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2080,60,0.002673006
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2090,57,0.002539356
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A1B,2100,56,0.002494806
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2050,73,0.003252157
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2060,69,0.003073957
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2070,64,0.002851207
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2080,60,0.002673006
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2090,62,0.002762106
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,A2,2100,61,0.002717556
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2050,70,0.003118507
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2060,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2070,64,0.002851207
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2080,63,0.002806656
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2090,59,0.002628456
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B1,2100,60,0.002673006
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2050,70,0.003118507
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2060,69,0.003073957
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2070,67,0.002984857
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2080,64,0.002851207
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2090,64,0.002851207
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,hay/pasture,B2,2100,63,0.002806656
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,historical,2005,604,0.026908262
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2050,622,0.027710163
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2060,617,0.027487413
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2070,617,0.027487413
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2080,609,0.027131012
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2090,604,0.026908262
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A1B,2100,596,0.026551861
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2050,598,0.026640961
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2060,607,0.027041912
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2070,602,0.026819161
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2080,594,0.026462761
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2090,580,0.025839059
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,A2,2100,576,0.025660859
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2050,622,0.027710163
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2060,618,0.027531963
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2070,618,0.027531963
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2080,619,0.027576513
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2090,627,0.027932914
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B1,2100,623,0.027754714
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2050,613,0.027309213
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2060,615,0.027398313
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2070,615,0.027398313
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2080,613,0.027309213
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2090,611,0.027220112
+"Rookery Bay National Estuarine Research Reserve, FL",1402914857,natural,B2,2100,611,0.027220112
