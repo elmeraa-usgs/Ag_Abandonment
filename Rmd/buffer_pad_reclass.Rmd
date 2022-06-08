@@ -449,22 +449,22 @@ inf <- rast(list.files("~/Desktop/FORESCE_PAD/FORESSCE_PAD/buffer_top_polygons_r
     
 ## 05/24/22: need to find a way to assign the tif file name to loop, havent been succesful      
 
-terra:: writeRaster(list_raster_cut[[1]]$lyr1 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Apalachicola_2100_B2_masked.tif",
-  overwrite = TRUE)
-
-terra:: writeRaster(list_raster_cut[[1]]$lyr2 , 
-  "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Cohutta_2100_B2_masked.tif",
-  overwrite = TRUE)
-
-terra:: writeRaster(list_raster_cut[[1]]$lyr3 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Kissimmee_2100_B2_masked.tif",
-  overwrite = TRUE)
-
-terra:: writeRaster(list_raster_cut[[1]]$lyr4 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Land_Between_2100_B2_masked.tif",
-  overwrite = TRUE)
-
-terra:: writeRaster(list_raster_cut[[1]]$lyr5 , 
-  "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked.tif",
-  overwrite = TRUE)
+# terra:: writeRaster(list_raster_cut[[1]]$lyr1 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Apalachicola_2100_B2_masked.tif",
+#   overwrite = TRUE)
+# 
+# terra:: writeRaster(list_raster_cut[[1]]$lyr2 , 
+#   "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Cohutta_2100_B2_masked.tif",
+#   overwrite = TRUE)
+# 
+# terra:: writeRaster(list_raster_cut[[1]]$lyr3 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Kissimmee_2100_B2_masked.tif",
+#   overwrite = TRUE)
+# 
+# terra:: writeRaster(list_raster_cut[[1]]$lyr4 , "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Land_Between_2100_B2_masked.tif",
+#   overwrite = TRUE)
+# 
+# terra:: writeRaster(list_raster_cut[[1]]$lyr5 , 
+#   "buffer_top_polygons_reclass_raster/PAD_df_filt_96km_10km_buff_Rookery_2100_B2_masked.tif",
+#   overwrite = TRUE)
 
 ```
 
@@ -631,11 +631,11 @@ A1B_2050_buf_recl <- classify(A1B_2050_buf,m)
 trans2 <- (hist_2005_buf_recl*10) + A1B_2050_buf_recl
 
 # save raster as .tif
-terra::writeRaster(
-  trans2,
-  "hist_2005_buf_trans_A1B_2050_buf_recl.tif",
-  overwrite = TRUE
-  )
+# terra::writeRaster(
+#   trans2,
+#   "hist_2005_buf_trans_A1B_2050_buf_recl.tif",
+#   overwrite = TRUE
+#   )
 
 rs_freq_tab<- freq(trans2) %>%  
   as.data.frame() %>% 
@@ -813,11 +813,11 @@ crop <- hist2005_trans_A1B2050_recl %>%
 plot(crop)
 
 # save raster as .tif
-terra::writeRaster(
-  crop,
-  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Ossabaw_rast.tif",
-  overwrite = TRUE
-  )
+# terra::writeRaster(
+#   crop,
+#   "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Ossabaw_rast.tif",
+#   overwrite = TRUE
+#   )
 
 hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
 
@@ -833,15 +833,15 @@ crop <- hist2005_trans_A1B2050_recl %>%
 plot(crop)
 
 # save raster as .tif
-terra::writeRaster(
-  crop,
-  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Crystal_rast.tif",
-  overwrite = TRUE
-  )
+# terra::writeRaster(
+#   crop,
+#   "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Crystal_rast.tif",
+#   overwrite = TRUE
+#   )
 
 hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
 
-PAD_buf_10km_unit_Myakkal_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakka.tif")) 
+PAD_buf_10km_unit_Myakkal_rast <- rast(here("buffer_transition_PAD_polygons","PAD_buf_10km_unit_Myakkal.tif")) 
 
 crs(PAD_buf_10km_unit_Myakkal_rast) <-  "EPSG:5070"
 crs(hist2005_trans_A1B2050_recl) <-  "EPSG:5070"
@@ -853,11 +853,11 @@ crop <- hist2005_trans_A1B2050_recl %>%
 plot(crop)
 
 # save raster as .tif
-terra::writeRaster(
-  crop,
-  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Myakkal_rast.tif",
-  overwrite = TRUE
-  )
+# terra::writeRaster(
+#   crop,
+#   "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Myakkal_rast.tif",
+#   overwrite = TRUE
+#   )
 
 hist2005_trans_A1B2050_recl <- rast(here("transition","hist_2005_buf_trans_A1B_2050_buf_recl.tif")) 
 
@@ -873,11 +873,11 @@ crop <- hist2005_trans_A1B2050_recl %>%
 plot(crop)
 
 # save raster as .tif
-terra::writeRaster(
-  crop,
-  "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Guana_rast.tif",
-  overwrite = TRUE
-  )
+# terra::writeRaster(
+#   crop,
+#   "buffer_transition_PAD_polygons/PAD_buf_10km_unit_Guana_rast.tif",
+#   overwrite = TRUE
+#   )
 
 ```
 
