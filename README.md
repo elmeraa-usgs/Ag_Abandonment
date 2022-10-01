@@ -1,1 +1,2 @@
-# Ag_Abandonment
+# Agricultural Abandonment, Arnhold Graduate Fellowship, emLab, UCSB
+This repo contains FORE-SCE and PAD analyses as it relates to understaning the influence of agricultural extensification. We aimed to measured as the amount of land going from cropland to pasture or from agriculture (cropland, pasture) to natural lands on fragmentation and connectivity to highlight potential conservation opportunities. 
